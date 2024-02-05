@@ -1,0 +1,962 @@
+@font-face {
+    font-family: montserrat-Thin;
+    src: url(fonts/montserrat-Thin.ttf);
+}
+
+@font-face {
+    font-family: montserrat-Medium;
+    src: url(fonts/montserrat-Medium.ttf);
+}
+
+@font-face {
+    font-family: rubik-ExtraBold;
+    src: url(fonts/rubik-ExtraBold.ttf);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+}
+
+p {
+    font-family: "montserrat-Medium";
+    font-size: 16px;
+}
+
+
+
+.icon {
+    width: 13%;
+    margin: 10px 0;
+    filter: drop-shadow(3px 4px 6px black);
+}
+
+.line {
+    width: 70px;
+    background-color: #FFDB15;
+    padding: 1px;
+    border: none;
+    margin-top: 5px;
+}
+
+.background {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(50deg, #02182efb, #021c3464), url("assets/umbrella_main_background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.main-header {
+    position: fixed;
+    width: 100%;
+    height: 80px;
+    top: 0;
+    left: 0;
+    background-color: #ffffffe9;
+    z-index: 32;
+    box-shadow: 0px 2px 10px 1px rgb(34, 34, 34);
+}
+
+
+header img {
+    position: absolute;
+    top: 20px;
+    width: 80px;
+    left: 20px;
+}
+
+.main-nav_items {
+    display: flex;
+    justify-content: center;
+    font-family: "montserrat-Medium", serif;
+    text-transform: uppercase;
+
+}
+
+.main-nav_item {
+    font-size: 1rem;
+    display: none;
+    margin: 2rem;
+}
+
+.main-nav_items li a,
+.mobile-nav-item a {
+    color: #244E72;
+    list-style: none;
+    text-decoration: none;
+}
+
+
+/* Mobile NAV */
+
+.mobile-nav {
+    display: none;
+    position: fixed;
+    z-index: 105;
+    top: 0;
+    left: 0;
+    background: linear-gradient(120deg, rgb(12, 12, 12), #244E72);
+    width: 100%;
+    height: 100vh;
+    animation: move .5s ease;
+    overflow: hidden;
+    font-family: "montserrat-Medium", sans-serif;
+
+}
+
+.mobile-nav img {
+    width: 100px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%);
+}
+
+.mobile-nav-items {
+    width: 100%;
+    height: 100%;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
+
+
+
+.mobile-nav-item a {
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    color: #FFFDFD;
+}
+
+/* Hamburger menu*/
+
+
+.toggle-button {
+    width: 2rem;
+    background: transparent;
+    cursor: pointer;
+    border: none;
+    position: absolute;
+    top: 22px;
+    right: 1rem;
+}
+
+.toggle-button:focus {
+    outline: none;
+}
+
+.toggle-button-bar {
+    width: 100%;
+    height: .15rem;
+    background: #244E72;
+    display: block;
+    margin: 0.4rem 0;
+}
+
+
+.title {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 6px;
+    z-index: 1;
+}
+
+.title a {
+    text-decoration: none;
+}
+
+
+.title h1 {
+    color: #FFFDFD;
+    letter-spacing: 10px;
+    font-family: "rubik-ExtraBold", sans-serif;
+    font-size: 2.2rem;
+    animation: appear 1.7s ease-in-out;
+    text-transform: uppercase;
+}
+
+.sub_title {
+    font-size: 2rem;
+    font-family: "montserrat-Thin", sans-serif;
+    color: #FFFDFD;
+    animation: appear 2.7s ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 11.5px;
+}
+
+.button {
+    background-color: #FFDB15;
+    border: none;
+    padding: 10px 35px;
+    border-radius: 15px;
+    color: #244E72;
+    animation: appear 1.9s ease-in-out;
+    font-family: "montserrat-Medium", sans-serif;
+    text-transform: uppercase;
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%);
+
+}
+
+.button a {
+    color: #244E72;
+    text-decoration: none;
+}
+
+.map {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.map img {
+    max-width: 300px;
+    filter: drop-shadow(10px 10px 10px rgb(67, 67, 67));
+    animation: mobile 1s ease;
+
+}
+
+
+
+.logo_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text img {
+    width: 35%;
+    padding: 3rem 0;
+}
+
+
+.picture {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+
+.picture img {
+    width: 100%;
+
+}
+
+/* RÓLUNK */
+
+.about_flexbox {
+    padding: 5rem 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(243, 243, 243);
+}
+
+.about_flexbox p {
+    width: 90%;
+    text-align: justify;
+    color: #244E72;
+}
+
+
+
+
+/* SZOLGÁLTATÁSOK */
+
+.szolgaltatasok_title {
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-family: "rubik-ExtraBold";
+
+}
+
+
+.services {
+    font-family: 'montserrat-Medium';
+    color: #244E72;
+    padding: 2rem 0;
+    background-image: url("assets/umbrella_footer.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.service {
+    width: 90%;
+    margin: 0 auto;
+
+}
+
+
+.background_services {
+    height: 40vh;
+    width: 100%;
+    background-image: linear-gradient(to top, #244E72 5%, rgba(241, 241, 241, 0.092)70%), url("assets/umbrella-szolgaltatasok-hatter.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.title_projekt {
+    margin: 1.5rem 0;
+    text-align: justify;
+}
+
+.flex_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.flex_item {
+    width: 90%;
+    border: 1px solid #244E72;
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.service h2 {
+    color: #244E72;
+    font-size: 1rem;
+    font-family: "rubik-ExtraBold", sans-serif;
+    text-transform: uppercase;
+    margin-bottom: .5rem;
+}
+
+.flex_item h2 {
+    font-family: "rubik-ExtraBold", sans-serif;
+    margin: 20px 0;
+    font-size: 1.3rem;
+}
+
+.flex_item h3 {
+    font-family: "rubik-ExtraBold", sans-serif;
+    margin: 18px 0;
+    font-size: 1.2rem;
+}
+
+.service_span {
+    font-family: "rubik-ExtraBold";
+}
+
+
+/* Kalkulator */
+
+.background_calkulator {
+    height: 40vh;
+    width: 100%;
+    background-image: linear-gradient(to top, #244E72 5%, rgba(241, 241, 241, 0.092)70%), url("assets/kalkulator_background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+figcaption {
+    font-family: "rubik-ExtraBold";
+    text-transform: uppercase;
+    width: 170px;
+    font-size: 1.2rem;
+    padding: 1rem;
+    border-radius: 0px 20px 0px 0px;
+    background-image: linear-gradient(to right, #93a9bf2a, #0e3e6e24), url("assets/umbrella_footer.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    left: 5%;
+    top: 30px;
+    color: #244E72;
+}
+
+
+.calculator {
+    font-family: 'montserrat-Medium';
+    background-image: url("assets/umbrella_footer.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.calculator_container {
+    width: 90%;
+    margin: 2rem auto;
+    text-transform: uppercase;
+    color: #244E72;
+    border: 1px solid rgb(223, 225, 231);
+    border-radius: 0px 10px 10px 10px;
+    box-shadow: 2px 3px 20px 1px rgba(34, 34, 34, 0.589);
+    font-size: 14px;
+}
+
+table {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.szamol_button {
+    width: 100%;
+    text-align: center;
+}
+
+.calculator_container td {
+    padding: 15px;
+
+}
+
+.kalkulator_container {
+    padding: 3rem 0;
+}
+
+.kalkulator_text {
+    color: #244E72;
+    font-family: "montserrat-Thin", sans-serif;
+    font-size: 15px;
+    text-align: justify;
+    width: 90%;
+    margin: 0 auto;
+}
+
+input {
+    text-align: center;
+    border: none;
+    outline: none;
+    background: none;
+    color:black;
+    font-family: "montserrat-Thin", sans-serif;
+    font-weight: 900;
+    font-size: 15px;
+}
+
+input#magyarorszagi_ceg,input#azonnali_fizetes,input#kedv_25_alatt{
+    width: 18px;
+    height: 18px;
+}
+
+.csuszka {
+    margin: 1rem 0;
+}
+
+
+
+.calcbutton {
+    border: 1px solid rgb(224, 223, 223);
+    background-color: #244e72c1;
+    color: #fff;
+    padding: .8rem 1.7rem;
+    font-family: "rubik-ExtraBold";
+    text-transform: uppercase;
+    width: 100%;
+    margin: 1.5rem 0;
+}
+
+
+
+/* Díjak */
+
+.dijak {
+    background-image: url("assets/umbrella_footer.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+.background_dijak {
+    height: 40vh;
+    width: 100%;
+    background-image: linear-gradient(to top, #244E72 5%, rgba(241, 241, 241, 0.092)70%), url("assets/umbrella_dijak_background.jpg");
+    background-position: top 60%;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+
+.dijak_container {
+    width: 90%;
+    text-align: left;
+    color: #244E72;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.dijak_container h2 {
+    font-family: "rubik-ExtraBold";
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    font-size: 1.7rem;
+}
+
+
+.dijak_table {
+    width: 90%;
+    margin: 0 auto;
+    background-color: #d5e3ee9a;
+    font-family: "montserrat-Medium";
+    font-size: 1rem;
+    box-shadow: 2px 1px 10px 1px rgba(116, 116, 116, 0.348);
+}
+
+.dijak_container .fizetes h3 {
+    margin: 0;
+    padding: 0;
+}
+
+.dijak_text {
+    margin: 1rem 0;
+}
+
+.fizetes p {
+    margin-bottom: 1rem;
+}
+
+
+.kiszamol {
+    text-align: center;
+    width: 100%;
+    font-family: 'montserrat-Medium';
+    text-transform: uppercase;
+    color: #f0f2f4;
+    background-image: linear-gradient(to right, #244E72, rgba(122, 145, 186, 0.576));
+    padding: 2rem 0;
+}
+
+
+
+tr:nth-child(even) {
+    background-color: #1f7dcf21;
+}
+
+.dijak_table td {
+    text-align: center;
+    padding: 1rem;
+    color: #244E72;
+}
+
+li {
+    margin: 1rem 0;
+}
+
+.figcaption_dijak {
+    font-family: "rubik-ExtraBold";
+    width: 230px;
+    font-size: 1rem;
+    border-radius: 0px 20px 0px 0px;
+    background-image: linear-gradient(to right, #e1e5e9bd, #aec5ddbf), url("assets/umbrella_footer.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    top: 10%;
+}
+
+.figcaption_dijak h3 {
+    color: #244E72;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.kalkulator_gomb {
+    width: 100%;
+    text-align: center;
+
+}
+
+
+.kalkulator_gomb button {
+    background-color: #FFDB15;
+    border: none;
+    padding: 10px 35px;
+    border-radius: 15px;
+    font-family: "montserrat-Medium", sans-serif;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 8px 1px rgba(46, 46, 46, 0.238);
+    cursor: pointer;
+
+}
+
+.kalkulator_gomb a button {
+    color: #244E72;
+}
+
+.kalkulator_gomb button:hover {
+    animation: scale .5s ease forwards;
+}
+
+/* Kapcsolat */
+
+.background_kontakt {
+    height: 40vh;
+    width: 100%;
+    background-image: linear-gradient(to top, #244E72 5%, rgba(241, 241, 241, 0.092)70%), url("assets/umbrella_kontakt.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.kapcsolat_container {
+    padding: 2rem;
+    text-transform: uppercase;
+    color: #244E72;
+}
+
+.kontakt_img {
+    width: 60%;
+    position: relative;
+    right: 40px;
+}
+
+.kapcsolat_container h1 {
+    font-family: "rubik-ExtraBold";
+    font-size: 1.5rem;
+}
+
+.kapcsolat_tartalom p {
+    margin-top: 1rem;
+    line-height: 1.5rem;
+
+}
+
+.kapcsolat_span {
+    font-family: "rubik-ExtraBold";
+}
+
+
+/*  FOOTER  */
+
+
+footer {
+    color: #244E72;
+    font-family: "montserrat-Medium", sans-serif;
+    background-image: url("assets/umbrella_footer.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+footer .footer-dt {
+    text-align: center;
+    font-size: 14px;
+    padding: 3em 0;
+}
+
+.footer-dt a {
+    text-decoration: none;
+    background-color: #0c2045fb;
+    background-image: linear-gradient(45deg, rgb(13, 71, 177), #e4b941f5 80%);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+
+}
+
+
+
+/* Animations */
+
+@keyframes scale {
+    0% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+
+}
+
+@keyframes mobile {
+    0% {
+        opacity: 0;
+        transform: translateY(3rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes move {
+    0% {
+        opacity: 0;
+        transform: translateX(-20rem);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+
+    }
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+
+
+    }
+
+
+}
+
+@keyframes arrow {
+    0% {
+        left: 30px;
+    }
+
+
+    100% {
+        left: 80px;
+    }
+}
+
+
+@media (min-width: 1000px) {
+
+
+    header img {
+        left: 50px;
+        top: 25px;
+    }
+
+    .toggle-button {
+        display: none;
+    }
+
+    .background {
+        background-attachment: fixed;
+    }
+
+    .title h1 {
+        font-size: 3rem;
+    }
+
+    .title h2 {
+        font-size: 2.7rem;
+        letter-spacing: 13px;
+    }
+
+    .map img {
+        max-width: 400px;
+        filter: drop-shadow(10px 10px 8px rgb(10, 10, 10));
+        position: relative;
+        left: 200px;
+        top: 50%;
+    }
+
+    .button {
+        top: 65%;
+    }
+
+
+
+    .nav-items {
+
+        display: flex;
+    }
+
+    .main-nav_item {
+        display: flex;
+        font-size: 14px;
+
+    }
+
+    .main-nav li a:hover {
+        animation: scale .4s;
+    }
+
+
+    .background_services {
+        height: 60vh;
+    }
+
+    .szolgaltatasok_title {
+        font-size: 1.8rem;
+    }
+
+    .service {
+        width: 60%;
+        margin: 3rem auto;
+
+    }
+
+    .flex_container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: row;
+    }
+
+    .flex_item {
+        width: 40%;
+        border: 1px solid #244e7269;
+        padding: 3rem;
+        margin: 1.5rem;
+    }
+
+    .flex_item h2 {
+        text-align: left;
+        font-size: 1.6rem;
+        margin: 0 0 4rem 0;
+
+    }
+
+
+
+    .background_calkulator {
+        height: 60vh;
+    }
+
+    figcaption {
+        position: relative;
+        top: 0;
+        left: 15%;
+        width: 170px;
+        font-size: 1.2rem;
+        color: #244E72;
+    }
+
+
+    .calculator figcaption {
+        position: relative;
+        top: 32px;
+        left: 15%;
+        width: 170px;
+        font-size: 1.2rem;
+        color: #244E72;
+    }
+
+    .calculator {
+        width: 100%;
+    }
+
+    .calculator_container {
+        width: 70%;
+    }
+
+    .calculator_container button {
+        width: 30%;
+    }
+
+    .calculator-items table {
+        width: 80%;
+    }
+
+    .calculator-items table td {
+        padding: 1.2rem;
+    }
+
+    .calcbutton {
+        width: 200px;
+
+    }
+
+    #foglalkoztatas_kalkulacio_table {
+        width: 80%;
+        margin: 2rem auto;
+    }
+
+    .kapcsolat_container {
+        padding: 0;
+        margin: 0;
+    }
+
+    .kalkulator_text {
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    .background_dijak {
+        height: 60vh;
+    }
+
+
+
+    .dijak_container {
+        width: 50%;
+        margin: 0 auto;
+        padding: 3rem 0;
+    }
+
+    .dijak_table {
+        width: 50%;
+    }
+
+
+    .figcaption_dijak {
+        position: relative;
+        top: 0;
+        left: 25%;
+    }
+
+    table {
+        width: 49%;
+        margin: 2rem auto;
+    }
+
+
+    .background_kontakt {
+        height: 60vh;
+    }
+
+    .kontakt_img {
+        width: 30%;
+        position: absolute;
+        top: 50%;
+        left: 80%;
+        transform: translate(-80%, -50%);
+    }
+
+    .background_ .kapcsolat_container {
+        padding: 5rem 0;
+        position: relative;
+    }
+
+    .kapcsolat_tartalom {
+        margin-left: 10rem;
+    }
+
+    .kapcsolat_container {
+        padding: 5rem 0;
+    }
+
+    .kontakt_img {
+        top: 90%;
+        right: 0;
+    }
+
+    .about_flexbox p {
+        width: 60%;
+        line-height: 28px;
+    }
+}

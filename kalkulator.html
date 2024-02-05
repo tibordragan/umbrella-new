@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <title>Budapest Umbrella - Kalkulátor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background_calkulator">
+    </div>
+    <header class="main-header">
+        <img src="" alt="">
+        <nav class="main-nav">
+            <ul class="main-nav_items">
+                <li class="main-nav_item"><a href="index.html">Kezdőlap</a></li>
+                <li class="main-nav_item"><a href="szolgaltatas.html">Szolgáltatás</a></li>
+                <li class="main-nav_item"><a href="kalkulator.html">Kalkulátor</a></li>
+                <li class="main-nav_item"><a href="dijak.html">Díjak</a></li>
+                <li class="main-nav_item"><a href="rolunk.html">Rólunk</a></li>
+                <li class="main-nav_item"><a href="kapcsolat.html">Kapcsolat</a></li>
+            </ul>
+        </nav>
+        <button class="toggle-button">
+            <span class="toggle-button-bar"></span>
+            <span class="toggle-button-bar"></span>
+            <span class="toggle-button-bar"></span>
+        </button>
+
+    </header>
+
+    <nav class="mobile-nav">
+        <a href="index.html"></a>
+        <ul class="mobile-nav-items">
+            <li class="mobile-nav-item">
+                <a href="index.html">Kezdőlap</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="szolgaltatas.html">Szolgáltatás</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="kalkulator.html">Kalkulátor</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="dijak.html">Díjak</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="rolunk.html">Rólunk</a>
+            </li>
+            <li class="mobile-nav-item">
+                <a href="kapcsolat.html">Kapcsolat</a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div class="calculator">
+        <figcaption>
+            Kalkulátor
+            <hr class="line">
+        </figcaption>
+
+        <div class="calculator_container">
+            <div class="calculator-items">
+                <table>
+                    <tr>
+                        <td>Alap díj</td>
+                        <td>
+                            <!-- Óradíj megadása -->
+                            <input style="background-color: #b7c9e7cb;" type="number" id="alap_oradij_input" min="0"
+                                onchange="numbercheck('alap_oradij_input');calc_button_enable();"
+                                oninput="minusSignKeyCheck('alap_oradij_input');calc_button_enable();" onpaste="return false;"
+                                ondrop="return false;" autocomplete="off">
+                            </input>
+                            <!-- Deviza választás -->
+                            <select name="devizak" id="devizak" onchange="devizavaltas();calc_button_enable();">
+                                <option value="EUR">EUR</option>
+                                <option value="USD">USD</option>
+                                <option value="GBP">GBP</option>
+                                <option value="HUF">HUF</option>
+                            </select>
+                            <label for="alap_oradij_input"> / </label>
+                            <!-- Napi/óra választó egyéb óraszám megadására alkalmas csúszkával -->
+                            <select name="nap_ora_honap_valaszto" id="nap_ora_honap_valaszto"
+                                onchange="csuszkaCheck(); devizavaltas(); calc_button_enable();">
+                                <option value="nap" selected="true">Nap</option>
+                                <option value="ora">Óra</option>
+                                <option value="honap">Hónap</option>
+                            </select><br>
+                            <label id="atlagos_orak_label"><br>Átlagosan<br> napi <span id="csuszkaValue"></span>
+                                óra</label>
+                            <input type="range" min="4" max="10" value="8" id="oraRange" disabled="true"
+                                class="csuszka" onchange="calc_button_enable();"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="arfolyam_td" colspan="2"></td>
+                    </tr>
+                    <tr>
+                        <!-- Magyarországi cég-e? checkbox -->
+                        <td>Magyarországi cég?</td>
+                        <td><input type="checkbox" id="magyarorszagi_ceg" class="check" onchange="calc_button_enable();"></td>
+                    </tr>
+                    <tr>
+                        <!-- További havi % hozzáadási lehetőség -->
+                        <td>További havi %</td>
+                        <td><input type="number" id="tovabbihavi%" min="0" value="0"
+                                onchange="numbercheck('tovabbihavi%');calc_button_enable();" oninput="minusSignKeyCheck('tovabbihavi%')"
+                                onpaste="return false;" ondrop="return false;" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <!-- További havi fix összeg hozzáadási lehetőség -->
+                        <td>További havi összeg</td>
+                        <td><input type="number" id="tovabbiosszeg" min="0" value="0"
+                                onchange="numbercheck('tovabbiosszeg'); calc_button_enable();" oninput="minusSignKeyCheck('tovabbiosszeg')"
+                                onpaste="return false;" ondrop="return false;" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <!-- Azonnali fizetés checkbox -->
+                        <td>Azonnali fizetés</td>
+                        <td><input type="checkbox" id="azonnali_fizetes" class="check" onchange="calc_button_enable();"></td>
+                    </tr>
+                    <tr>
+                        <!-- 25 év alatti checkbox -->
+                        <td>25 év alatti?</td>
+                        <td><input type="checkbox" id="kedv_25_alatt" class="check" onchange="calc_button_enable();"></td>
+                    </tr>
+                </table>
+
+                <!-- Foglalkoztatás kalkuláció -->
+                <div class="szamol_button">
+                    <input type="button" id="calculate_button" onclick="foglalkoztatas_Calculate();calc_button_disable()" value="számol" class="calcbutton">
+                </div>
+
+                <!-- Foglalkoztatás táblázata -->
+                <table id="foglalkoztatas_kalkulacio_table"></table><br>
+                <label id="foglalkoztatas_kalkulacio_eredmeny"><u></u></label>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        //JSON file beolvasás + alap szöveg megadása az árfolyamhoz
+        var EURHUFarfolyam = 0;
+        var USDHUFarfolyam = 0;
+        var GBPHUFarfolyam = 0;
+        fetch("rates.json")
+            .then(response => response.json())
+            .then(data => {
+                for (var i = 0; i < data.rates.length; i++) {
+                    EURHUFarfolyam = data.rates[i].EURHUF;
+                    USDHUFarfolyam = data.rates[i].USDHUF;
+                    GBPHUFarfolyam = data.rates[i].GBPHUF;
+                }
+                devizavaltas(); //árfolyamot frissíti amikor készen van a fetch
+            })
+
+
+        //Kezdő értékadás az Alap óradíjnak
+        var alapszoveg = "A kalkulációhoz felhasznált árfolyam: ";
+        var deviza = document.getElementById("devizak");
+        var selected = deviza.value;
+        var devizaertek = 400;
+        document.getElementById("alap_oradij_input").value = devizaertek;
+
+        //Deviza váltásnál változtatja az értékét a bevitelnek
+        function devizavaltas() {
+            var deviza = document.getElementById("devizak");
+            var selected = deviza.value;
+            var devizaertek = 50;
+            var nap_vagy_ora = document.getElementById("nap_ora_honap_valaszto").value;
+            var arfolyam_td = document.getElementById("arfolyam_td");
+
+            if (nap_vagy_ora == "nap") {
+                if (selected == "HUF") {
+                    devizaertek = 12500 * 8;
+                    document.getElementById("alap_oradij_input").value = devizaertek;
+                    arfolyam_td.innerHTML = "";
+                }
+                else {
+                    devizaertek = devizaertek * 8;
+                    document.getElementById("alap_oradij_input").value = devizaertek;
+                    if (selected == "EUR") { arfolyam_td.innerHTML = alapszoveg + `<input id="arfolyam_input" style="background-color: #E7E8EC;" oninput="minusSignKeyCheck('arfolyam_input')" onchange="numbercheck('arfolyam_input')" value=${EURHUFarfolyam}></input>` + " Ft / " + selected; }
+                    else if (selected == "USD") { arfolyam_td.innerHTML = alapszoveg + `<input id="arfolyam_input" style="background-color: #E7E8EC;" oninput="minusSignKeyCheck('arfolyam_input')" onchange="numbercheck('arfolyam_input')" value=${USDHUFarfolyam}></input>` + " Ft / " + selected; }
+                    else if (selected == "GBP") { arfolyam_td.innerHTML = alapszoveg + `<input id="arfolyam_input" style="background-color: #E7E8EC;" oninput="minusSignKeyCheck('arfolyam_input')" onchange="numbercheck('arfolyam_input')" value=${GBPHUFarfolyam}></input>` + " Ft / " + selected; }
+                    else { console.log("Nap kiválasztva - valuta kiválasztás nem helyes!"); }
+                }
+            }
+            else if(nap_vagy_ora == "ora"){
+                if (selected == "HUF") {
+                    devizaertek = 12500;
+                    document.getElementById("alap_oradij_input").value = devizaertek;
+                    document.getElementById("arfolyam_td").innerHTML = "";
+                }
+                else {
+                    devizaertek = 50;
+                    document.getElementById("alap_oradij_input").value = devizaertek;
+                    if (selected == "EUR") { document.getElementById("arfolyam_td").innerHTML = alapszoveg + `<input id="arfolyam_input" style="background-color: #E7E8EC;" oninput="minusSignKeyCheck('arfolyam_input')" onchange="numbercheck('arfolyam_input')" value=${EURHUFarfolyam}></input>` + " Ft / " + selected;}
+                    else if (selected == "USD") {
+                        document.getElementById("arfolyam_td").innerHTML = alapszoveg + `<input id="arfolyam_input" style="background-color: #E7E8EC;" oninput="minusSignKeyCheck('arfolyam_input')" onchange="numbercheck('arfolyam_input')" value=${USDHUFarfolyam}></input>` + " Ft / " + selected;
+                    }
+                    else if (selected == "GBP") {
+                        document.getElementById("arfolyam_td").innerHTML = alapszoveg + `<input id="arfolyam_input" style="background-color: #E7E8EC;" oninput="minusSignKeyCheck('arfolyam_input')" onchange="numbercheck('arfolyam_input')" value=${GBPHUFarfolyam}></input>` + " Ft / " + selected;
+                    }
+                    else {
+                        console.log("Óra kiválasztva - valuta kiválasztás nem helyes!");
+                    }
+                }
+
+            }
+            else if(nap_vagy_ora=="honap"){
+                if (selected == "HUF") {
+                    devizaertek = 12500 * 8 * 20;
+                    document.getElementById("alap_oradij_input").value = devizaertek;
+                    document.getElementById("arfolyam_td").innerHTML = "";
+                }
+                else {
+                    devizaertek = 8000;
+                    document.getElementById("alap_oradij_input").value = devizaertek;
+                    if (selected == "EUR") {
+                        document.getElementById("arfolyam_td").innerHTML = alapszoveg + `<input id="arfolyam_input" style="background-color: #E7E8EC;" oninput="minusSignKeyCheck('arfolyam_input')" onchange="numbercheck('arfolyam_input')" value=${EURHUFarfolyam}></input>` + " Ft / " + selected;
+                    }
+                    else if (selected == "USD") {
+                        document.getElementById("arfolyam_td").innerHTML = alapszoveg + `<input id="arfolyam_input" style="background-color: #E7E8EC;" oninput="minusSignKeyCheck('arfolyam_input')" onchange="numbercheck('arfolyam_input')" value=${USDHUFarfolyam}></input>` + " Ft / " + selected;
+                    }
+                    else if (selected == "GBP") {
+                        document.getElementById("arfolyam_td").innerHTML = alapszoveg + `<input id="arfolyam_input" style="background-color: #E7E8EC;" oninput="minusSignKeyCheck('arfolyam_input')" onchange="numbercheck('arfolyam_input')" value=${GBPHUFarfolyam}></input>` + " Ft / " + selected;
+                    }
+                    else {
+                        console.log("Óra kiválasztva - valuta kiválasztás nem helyes!");
+                    }
+                }
+            }
+            else{
+                console.log("Hiba az időszak kiválasztásában!");
+            }
+        }
+        document.getElementById('foglalkoztatas_kalkulacio_table').innerHTML = "";
+
+        //Számol gomb deaktiválása és elszínezése rányomás után
+        function calc_button_disable(){
+            document.getElementById("calculate_button").disabled = true;
+            document.getElementById("calculate_button").style.backgroundColor = "#FFD95A";
+            document.getElementById("calculate_button").value = "eredmény";
+        }
+        //Számol gomb aktiválása változtatás esetén (onchange és egyéb változtatást előidéző helyeken)
+        function calc_button_enable(){
+            document.getElementById("calculate_button").disabled = false;
+            document.getElementById("calculate_button").style.backgroundColor = "#244e72c1";
+            document.getElementById("calculate_button").value = "számol";
+        }
+
+        //Number input ellenőrzés, ha kisebb mint 0 vagy tartalmaz '-' karaktert akkor visszaállítja 0-ra ne is engedjen beírni olyan karaktert, ami gondot jelent számításnál
+        function numbercheck(id) {
+            var ertekEllenorzesre = String(document.getElementById(id).value);
+            if (ertekEllenorzesre.includes("-")) {
+                document.getElementById(id).value = 0;
+            }
+        }
+        function minusSignKeyCheck(id) {
+            var keyDownValue = document.getElementById(id);
+            keyDownValue.onkeydown = function (e) {
+                if (!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) || e.keyCode == 8)) {
+                    return false;
+                }
+            }
+        }
+
+        //Csúszka beállítása és label értékadása
+        var slider = document.getElementById("oraRange");
+        var output = document.getElementById("csuszkaValue");
+        var slidervalue = slider.value;
+        output.innerHTML = slider.value;
+
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }
+
+        //Óra csúszka + label beállítás
+        //alap értékadás
+        var slider = document.getElementById("oraRange");
+        slider.hidden = true;
+        slider.disabled = true;
+        var slider_label = document.getElementById("atlagos_orak_label");
+        slider_label.hidden = true;
+        //function értékadás
+        function csuszkaCheck() {
+            var nap_ora_honap_valaszto_ertek = document.getElementById("nap_ora_honap_valaszto").value;
+            if (nap_ora_honap_valaszto_ertek == "nap") {
+                slider.hidden = true;
+                slider.disabled = true;
+                slider_label.hidden = true;
+            }
+            else if(nap_ora_honap_valaszto_ertek == "honap"){
+                slider.hidden = true;
+                slider.disabled = true;
+                slider_label.hidden = true;
+            }
+            else {
+                slider.hidden = false;
+                slider.disabled = false;
+                slider_label.hidden = false;
+            }
+
+        }
+
+        //Óradíj number input field disable
+        function oraDijDisable() {
+            var numberInput = document.getElementById('egyebinput');
+            numberInput.disabled = true;
+        }
+
+        //Óradíj number input field enable
+        function oraDijEnable() {
+            var numberInput = document.getElementById('egyebinput');
+            numberInput.disabled = false;
+        }
+
+        //Foglalkoztatás kalkuláció
+        function foglalkoztatas_Calculate() {
+            //bevétel alap értékadás
+            var totalincome = 0;
+            var totalincome_huf = 0;
+
+            //deviza kiválasztás és a deviza díj kinyerése
+            var deviza = document.getElementById('devizak').value;
+            var deviza_ora_nap_dij = document.getElementById('alap_oradij_input').value;
+
+            //nap vagy óra vagy hónap választás, ha óra akkor a megadott óra kinyerése
+            var napi_vagy_ora = document.getElementById('nap_ora_honap_valaszto').value;
+            var oraErtek = document.getElementById('oraRange').value;
+
+            //további összegek hozzáadása
+            var tovabbihaviszazalekertek = document.getElementById('tovabbihavi%').value;
+            var tovabbiosszegertek = document.getElementById('tovabbiosszeg').value;
+
+            //teljes bevétel kiszámítása napra és óradíjra
+            if (napi_vagy_ora == "nap") {
+                totalincome = Number(deviza_ora_nap_dij) * 20 * (1 + Number(tovabbihaviszazalekertek) / 100) + Number(tovabbiosszegertek);
+            }
+            else if(napi_vagy_ora == "honap"){
+                totalincome = Number(deviza_ora_nap_dij) * (1 + Number(tovabbihaviszazalekertek) / 100) + Number(tovabbiosszegertek);
+            }
+            else {
+                totalincome = Number(deviza_ora_nap_dij) * Number(oraErtek) * 20 * (1 + Number(tovabbihaviszazalekertek) / 100) + Number(tovabbiosszegertek)
+            }
+
+            //umbrella költség számítás különböző devizákra átszámítva
+            var umbrella_koltseg = 400; //ez az euróban megadott alapból
+            var umbrella_koltseg_huf = 160000; //ez a forintban megadott alapból
+
+            var umbrella_koltseg_azonnali_atutalassal = 500; //ez az euróban megadott ha azonnali átutalásos
+            var umbrella_koltseg_azonnali_atutalassal_huf = 200000; //ez a forintban megadott ha azonnali átutalásos
+
+            var totalincome_5_szazaleka = totalincome * 0.05;
+            var totalincome_8_szazaleka = totalincome * 0.08;
+
+            if(document.getElementById("arfolyam_input") == null){
+                var deviza_input_ertek= 1;
+            }
+            else{
+                var deviza_input_ertek = document.getElementById("arfolyam_input").value ;
+            }
+           
+
+            const isMagyarorszagiCeg = document.getElementById('magyarorszagi_ceg').checked;
+            const isAzonnaliFizetes = document.getElementById('azonnali_fizetes').checked;
+
+            if (isMagyarorszagiCeg) {
+                if (isAzonnaliFizetes) {
+                    umbrella_koltseg = calculateUmbrellaKoltseg(deviza, umbrella_koltseg_azonnali_atutalassal_huf / EURHUFarfolyam, totalincome_8_szazaleka, EURHUFarfolyam, USDHUFarfolyam, GBPHUFarfolyam);
+                } else {
+                    umbrella_koltseg = calculateUmbrellaKoltseg(deviza, umbrella_koltseg_huf / EURHUFarfolyam, totalincome_5_szazaleka, EURHUFarfolyam, USDHUFarfolyam, GBPHUFarfolyam);
+                }
+            } else {
+                if (isAzonnaliFizetes) {
+                    umbrella_koltseg = calculateUmbrellaKoltseg(deviza, umbrella_koltseg_azonnali_atutalassal, totalincome_8_szazaleka, EURHUFarfolyam, USDHUFarfolyam, GBPHUFarfolyam);
+                } else {
+                    umbrella_koltseg = calculateUmbrellaKoltseg(deviza, umbrella_koltseg, totalincome_5_szazaleka, EURHUFarfolyam, USDHUFarfolyam, GBPHUFarfolyam);
+                }
+            }
+
+            function calculateUmbrellaKoltseg(deviza, koltsegHUF, szazalek, EURHUF, USDHUF, GBPHUF) {
+                switch (deviza) {
+                    case "EUR":
+                        return Math.max(koltsegHUF * EURHUF / EURHUF, szazalek);
+                    case "HUF":
+                        return Math.max(koltsegHUF * EURHUF, szazalek);
+                    case "USD":
+                        return Math.max(koltsegHUF * EURHUF / USDHUF, szazalek);
+                    case "GBP":
+                        return Math.max(koltsegHUF * EURHUF / GBPHUF, szazalek);
+                    default:
+                        console.log("hiba költség kalkuláció közben");
+                        return 0;
+                }
+            }
+
+            //foglalkoztatásra fennmaradó összeg kiszámítása és forintosítása
+            if (deviza == "USD") { totalincome_huf = (totalincome - umbrella_koltseg) * deviza_input_ertek; }
+            else if (deviza == "GBP") { totalincome_huf = (totalincome - umbrella_koltseg) * deviza_input_ertek; }
+            else if (deviza == "EUR") { totalincome_huf = (totalincome - umbrella_koltseg) * deviza_input_ertek; }
+            else if (deviza == "HUF") { totalincome_huf = totalincome - umbrella_koltseg; }
+            var selected_deviza_totalincome = totalincome - umbrella_koltseg;
+
+            var teljes_berkoltseg = totalincome_huf;
+            var teljes5szazalek = teljes_berkoltseg * 0.05;
+            var szocho = teljes_berkoltseg * 0.11504424778761061946902654867257;
+            var brutto = teljes_berkoltseg - szocho;
+            var tbjarulek = brutto * 0.185;
+            var szja = brutto * 0.15;
+            var osszlevonas;
+            if (document.getElementById('kedv_25_alatt').checked) {
+                osszlevonas = tbjarulek;
+                szja = 0;
+            }
+            else { osszlevonas = tbjarulek + szja; }
+            var netto = brutto - osszlevonas;
+
+            if(deviza!="HUF"){
+                document.getElementById('foglalkoztatas_kalkulacio_table').innerHTML =
+                `<tr>
+                    <td>Teljes bevétel:</td>
+                    <td>${totalincome.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td>Umbrella költségek:</td>
+                    <td>${umbrella_koltseg.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td>Foglalkoztatásra fennmaradó összeg:</td>
+                    <td>${(totalincome - umbrella_koltseg).toLocaleString(undefined, { maximumFractionDigits: 0 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td>Foglalkoztatásra fennmaradó összeg (HUF):</td>
+                    <td>${(totalincome_huf).toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                    <td>${selected_deviza_totalincome.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>Teljes bérköltség:</td>
+                    <td>${teljes_berkoltseg.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                    <td>${selected_deviza_totalincome.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td><b>Bruttó:</b></td>
+                    <td><b>${brutto.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</b></td>
+                    <td><b>${(brutto/deviza_input_ertek).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${deviza}</b></td>
+                </tr>
+                <tr>
+                    <td>Szocho:</td>
+                    <td>${szocho.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                    <td>${(szocho/deviza_input_ertek).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>TB járulék:</td>
+                    <td>${tbjarulek.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                    <td>${(tbjarulek/deviza_input_ertek).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td>SZJA:</td>
+                    <td>${szja.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                    <td>${(szja/deviza_input_ertek).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td>Összes levonás:</td>
+                    <td>${osszlevonas.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                    <td>${(osszlevonas/deviza_input_ertek).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td><b>Nettó:</b></td>
+                    <td><b>${netto.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</b></td>
+                    <td><b>${(netto/deviza_input_ertek).toLocaleString(undefined, { maximumFractionDigits: 2 })} ${deviza}</b></td>
+                </tr>
+                `;
+            }
+            else{
+                document.getElementById('foglalkoztatas_kalkulacio_table').innerHTML =
+                `<tr>
+                    <td>Teljes bevétel:</td>
+                    <td>${totalincome.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td>Umbrella költségek:</td>
+                    <td>${umbrella_koltseg.toLocaleString(undefined, { maximumFractionDigits: 0 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td>Foglalkoztatásra fennmaradó összeg:</td>
+                    <td>${(totalincome - umbrella_koltseg).toLocaleString(undefined, { maximumFractionDigits: 0 })} ${deviza}</td>
+                </tr>
+                <tr>
+                    <td>Foglalkoztatásra fennmaradó összeg (HUF):</td>
+                    <td>${(totalincome_huf).toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>Teljes bérköltség:</td>
+                    <td>${teljes_berkoltseg.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                </tr>
+                <tr>
+                    <td><b>Bruttó:</b></td>
+                    <td><b>${brutto.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</b></td>
+                </tr>
+                <tr>
+                    <td>Szocho:</td>
+                    <td>${szocho.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                </tr>
+                <tr>
+                    <td>TB járulék:</td>
+                    <td>${tbjarulek.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                </tr>
+                <tr>
+                    <td>SZJA:</td>
+                    <td>${szja.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                </tr>
+                <tr>
+                    <td>Összes levonás:</td>
+                    <td>${osszlevonas.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</td>
+                </tr>
+                <tr>
+                    <td><b>Nettó:</b></td>
+                    <td><b>${netto.toLocaleString(undefined, { maximumFractionDigits: 0 })} HUF</b></td>
+                </tr>
+                `;
+            }
+        }
+    </script>
+
+    <div class="kalkulator_container">
+        <div class="kalkulator_text">
+            <p>
+                *A foglalkoztatási költségek kalkulációja indikatív, körülményektől (gyerekek száma, friss házasok,
+                egyéb kedvezmények) és adó- illetve jogszabályi környezettől függően változhat. Nem minősül ajánlatnak.
+                A költségek kalkulációja indikatív, a választott csomagtól és szerződési feltételektől függően
+                változhat.
+                A havi összegekben (kifejezetten a megbízás elején és végén) eltérés mutatkozhat.
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p class="footer-dt">Coded with passion by <a href="https://www.dtweb.hu">dtweb</a></p>
+    </footer>
+    <script src="Javascript/hamburger.js"></script>
+</body>
+
+</html>
